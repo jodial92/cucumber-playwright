@@ -1,10 +1,11 @@
 import { Given } from "@cucumber/cucumber";
 import { PageId } from '../env/global';
 import { navigateToPage } from '../support/navigation-behavior';
+import { ScenarioWorld } from "../step-definitions/setup/world";
 
 Given(
     /^I am on the "([^"]*)" page$/,
-    async function(pageId: PageId) {
+    async function(this: ScenarioWorld, pageId: PageId) {
         const {
             screen: {page},
             globalVariables,
