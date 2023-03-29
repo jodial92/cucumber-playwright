@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "transpile": "rimraf dist && babel --extensions .ts --out-dir dist src",
+    "precucumber": "rimraf reports && mkdir reports && echo {} > reports/reports.json",
+    "cucumber": "npm run transpile && cucumber-js",
+    "postcucumber": "ts-node ./src/reporter/cucumber-report.ts"
   },
   "author": "Roberto Diaz",
   "license": "ISC",
