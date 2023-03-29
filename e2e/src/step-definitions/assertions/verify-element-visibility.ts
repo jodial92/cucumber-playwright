@@ -1,5 +1,7 @@
 import { Then } from "@cucumber/cucumber";
 import { expect } from '@playwright/test';
+import { ElementKey } from '../../env/global';
+import { getElementLocator } from '../../support/web-element-helper';
 
 Then(
     /^the "([^"]*)" should contain the text "(.*)"$/,
@@ -21,11 +23,14 @@ Then(
     async function(elementKey: string) {
         const {
             screen: {page},
+            globalVariables,
+            globalConfig,
         } = this;
         
         console.log(`the ${elementKey} should be displayed`);
 
-        const locator = await page.locator("[data-id='playground-button']");
+        const elementIdentifier = getElementLocator(page, elementKey, globalVariables, globalConfig);
+        const locator = await page.locator(elementIdentifier);
         
         await expect(locator).toBeVisible();
     }

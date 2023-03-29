@@ -7,9 +7,11 @@ Given(
     async function(pageId: PageId) {
         const {
             screen: {page},
-            globalConfig
+            globalVariables,
+            globalConfig,
         } = this;
         console.log(`I am on the ${pageId} page`);
+        globalVariables.currentScreen = pageId;
         await navigateToPage(page, pageId, globalConfig);
     }
 );
