@@ -16,4 +16,23 @@ export const navigateToPage = async (
     url.pathname = pagesConfigItem.route;
 
     await page.goto(url.href);
+};
+
+const pathMatchesPageId = (
+    path: string,
+    pageId: PageId,
+    {pagesConfig}: GlobalConfig
+): boolean => {
+    const pageRegexString = pagesConfig[pageId].regex;
+    const pageRegex = new RegExp(pageRegexString);
+    return pageRegex.test(path)
 }
+
+export const currentPathMatchesPageId = (
+    page: Page,
+    pageId: PageId,
+    globalConfig: GlobalConfig,
+): boolean => {
+    const { pathname: currentPath } = new URL(page.url());
+    return pathMatchesPageId(currentPath, pageId, globalConfig);
+};
