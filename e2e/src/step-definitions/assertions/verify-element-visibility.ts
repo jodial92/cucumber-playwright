@@ -9,13 +9,12 @@ Then(
     async function(this: ScenarioWorld, elementKey: string) {
         const {
             screen: {page},
-            globalVariables,
             globalConfig,
         } = this;
         
         console.log(`the ${elementKey} should be displayed`);
 
-        const elementIdentifier = getElementLocator(page, elementKey, globalVariables, globalConfig);
+        const elementIdentifier = getElementLocator(page, elementKey, globalConfig);
         const locator = await page.locator(elementIdentifier);
         
         await waitFor(async () => {
